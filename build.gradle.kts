@@ -1,7 +1,7 @@
 plugins {
     java
 
-    id("fabric-loom") version "1.5.+"
+    id("fabric-loom") version "1.6.+"
     //id("io.github.juuxel.loom-vineflower") version "1.11.+"
 
     id("com.modrinth.minotaur") version "2.7.+"
@@ -13,7 +13,7 @@ plugins {
 }
 
 group = "dev.isxander"
-version = "1.3.0"
+version = "1.4.0"
 
 repositories {
     mavenCentral()
@@ -39,18 +39,12 @@ dependencies {
 
     modImplementation("net.fabricmc:fabric-loader:$fabricLoaderVersion")
 
-    modImplementation("dev.isxander.yacl:yet-another-config-lib-fabric:3.3.2+1.20.4")
-    modImplementation("com.terraformersmc:modmenu:9.0.0")
-
-    "com.github.llamalad7.mixinextras:mixinextras-fabric:0.2.0-beta.10".let {
-        implementation(it)
-        annotationProcessor(it)
-        include(it)
-    }
+    modImplementation("dev.isxander:yet-another-config-lib:3.4.4+1.20.6-fabric")
+    modImplementation("com.terraformersmc:modmenu:10.0.0-beta.1")
 
     // sodium compat
-    modImplementation("maven.modrinth:sodium:mc1.20.4-0.5.8")
-    modRuntimeOnly("net.fabricmc.fabric-api:fabric-api:0.96.4+1.20.4")
+    modImplementation("maven.modrinth:sodium:mc1.20.6-0.5.8")
+    modRuntimeOnly("net.fabricmc.fabric-api:fabric-api:0.99.4+1.20.6")
 }
 
 java {
@@ -104,7 +98,7 @@ if (modrinthId.isNotEmpty()) {
         versionNumber.set("${project.version}")
         versionType.set("release")
         uploadFile.set(tasks["remapJar"])
-        gameVersions.set(listOf("1.20.4"))
+        gameVersions.set(listOf("1.20.6"))
         loaders.set(listOf("fabric", "quilt"))
         changelog.set(changelogText)
         syncBodyFrom.set(file("README.md").readText())
@@ -128,10 +122,10 @@ if (hasProperty("curseforge.token") && curseforgeId.isNotEmpty()) {
 
             id = curseforgeId
             releaseType = "release"
-            addGameVersion("1.20.4")
+            addGameVersion("1.20.6")
             addGameVersion("Fabric")
             addGameVersion("Quilt")
-            addGameVersion("Java 17")
+            addGameVersion("Java 21")
 
             relations(closureOf<com.matthewprenger.cursegradle.CurseRelation> {
                 requiredDependency("yacl")
